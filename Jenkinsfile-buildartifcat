@@ -1,0 +1,58 @@
+pipeline{
+    agent any
+
+    environment{
+         AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
+         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+         ARTIFACT_REPO = "buildartifactrepo"
+         REGION = "us-east-1"
+
+    }
+
+    stages{
+        stage('Code Checkout'){
+            script{
+                git branch:'master',url:'https://github.com/skykesavanke/Artifact_Imagebuild.git'
+            }
+           
+
+            }
+        stage('Building Artifact'){
+            steps{
+                sh 'mvn clean'
+                echo ".......Cleaning the previous build......"
+                sh 'mvn compile'
+                echo ".......Compiling the source code......"
+                sh 'mvn package'
+                echo ".......Creating Jar files........"
+                sh 'mv target/*.jar target/hello-artifact.jar'
+                }
+        }
+        stage('Push to Code Artifact'){
+            steps{
+                  
+                def domainName = 'buildartifact'
+                def repositoryName = "${env.ARTIFACT_REPO}"
+                def artifactPath = '/target/hello-artifact.jar'
+                def region ="${env.REGION}"
+
+                sh """
+                    set ARTIFACT_REPO=${repositoryName}
+                    set REGION=${region}
+                   
+                   aws codeartifact upload-package \
+                        --domain $domainName \
+                        --repository %ARTIFACT_REPO% \
+                        --package format=maven \
+                         --path $artifactPath
+                          --region %REGION%
+                """
+             
+                      
+
+
+            }
+        }
+        }
+    }
+

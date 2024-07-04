@@ -17,8 +17,7 @@ pipeline{
             steps{
                 script{
                
-                     git branch: 'master',url:'https://github.com/skykesavanke/ArtifactBuild.git'
-                }
+                     git branch: 'master',url:'https://github.com/skykesavanke/Artifact_Imagebuild.git'
                
         }
             }
@@ -92,12 +91,13 @@ pipeline{
                     
              }  
     }
+    */
 
-        stage('Trigger Deployment Pipeline'){
+        stage('Build Artifact Pipeline trigger'){
             steps{
-                build job : 'Deployment_of_cluster'
+                build job : 'Image_Build_from_Artifact'
             }
-        }*/
+       
     }
 }
 

@@ -6,7 +6,7 @@ variable "region_name" {
 variable "codeartifact_repo" {
   type        = string
   description = "this describes the repo where the artifact is stored"
-  default = "Artifact_build"
+  default = "buildartifactrepo"
 }
 variable "ecr_repo" {
   type        = string
