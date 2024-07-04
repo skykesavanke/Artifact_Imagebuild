@@ -11,10 +11,11 @@ pipeline{
 
     stages{
         stage('Code Checkout'){
-            script{
+             steps{
+                script{
                 git branch:'master',url:'https://github.com/skykesavanke/Artifact_Imagebuild.git'
             }
-           
+             }
 
             }
         stage('Building Artifact'){
@@ -30,6 +31,7 @@ pipeline{
         }
         stage('Push to Code Artifact'){
             steps{
+                script{
                   
                 def domainName = 'buildartifact'
                 def repositoryName = "${env.ARTIFACT_REPO}"
@@ -48,7 +50,7 @@ pipeline{
                           --region %REGION%
                 """
              
-                      
+                }        
 
 
             }
