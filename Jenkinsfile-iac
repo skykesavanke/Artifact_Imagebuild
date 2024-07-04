@@ -21,6 +21,7 @@ pipeline{
                
         }
             }
+        }
 
         stage('Terraform Initialize'){
              steps{
@@ -99,8 +100,9 @@ pipeline{
             }
        
     }
+
 }
-    }
+}
     
 
 
