@@ -1,7 +1,6 @@
 pipeline{
-    agent {
-         docker {image  'maven:3.9.6-adoptopenjdk-21'}
-    }
+    agent any
+    
 
     environment{
          AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
