@@ -1,7 +1,7 @@
 pipeline{
     agent {
         docker{image 'maven:3.8.2-amazoncorretto-17'
-         args '-v /c/Users/kesavank/ArtifactBuild:/src'
+         args '-v /c/Users/kesavank/ArtifactBuild:/workspace -w /workspace'
          }
     }
     
@@ -26,7 +26,7 @@ pipeline{
         stage('Building Artifact'){
             steps{
             
-                dir('/src/') {
+                dir('/workspace') {
 
                 bat 'mvn clean'
                 echo ".......Cleaning the previous build......"
@@ -45,7 +45,7 @@ pipeline{
                   
                 def domainName = 'buildartifact'
                 def repositoryName = "${env.ARTIFACT_REPO}"
-                def artifactPath = 'target/hello-artifact.jar'
+                def artifactPath = '/workspace/target/hello-artifact.jar'
                 def region ="${env.REGION}"
 
                 bat """
