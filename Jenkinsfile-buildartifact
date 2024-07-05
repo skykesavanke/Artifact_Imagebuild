@@ -1,6 +1,7 @@
 pipeline{
     agent {
-        docker{image 'maven:3.8.2-amazoncorretto-17'
+        docker{
+            image 'maven:3.8.2-amazoncorretto-17'
          args '-v /c/Users/kesavank/ArtifactBuild:/workspace -w /workspace'
          }
     }
@@ -49,8 +50,9 @@ pipeline{
                 def region ="${env.REGION}"
 
                 sh """
-                    set ARTIFACT_REPO=${repositoryName}
-                    set REGION=${region}
+                    export ARTIFACT_REPO=${repositoryName}
+                    export REGION=${region}
+                        
                    
                    aws codeartifact upload-package \
                         --domain $domainName \
