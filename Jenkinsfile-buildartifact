@@ -21,7 +21,7 @@ pipeline{
             }
         stage('Building Artifact'){
             steps{
-                 withMaven(maven : 'maven_3_9_6'){
+                 withMaven(maven : 'maven 3.9.6'){
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
                 sh 'mvn compile'
