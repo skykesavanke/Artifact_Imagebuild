@@ -28,13 +28,13 @@ pipeline{
             
                 dir('/workspace') {
 
-                bat 'mvn clean'
+                sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
-                bat 'mvn compile'
+                sh 'mvn compile'
                 echo ".......Compiling the source code......"
-                bat 'mvn package'
+                sh 'mvn package'
                 echo ".......Creating Jar files........"
-                bat 'mv target/*.jar target/hello-artifact.jar'
+                sh 'mv target/*.jar target/hello-artifact.jar'
                 
             }
             }
@@ -48,7 +48,7 @@ pipeline{
                 def artifactPath = '/workspace/target/hello-artifact.jar'
                 def region ="${env.REGION}"
 
-                bat """
+                sh """
                     set ARTIFACT_REPO=${repositoryName}
                     set REGION=${region}
                    
