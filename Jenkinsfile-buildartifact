@@ -7,7 +7,7 @@ pipeline{
          AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
          ARTIFACT_REPO = "buildartifactrepo"
          REGION = "us-east-1"
-        
+        MAVEN_HOME= "C:\Users\kesavank\Maven\apache-maven-3.9.6"
 
     }
     
@@ -22,7 +22,9 @@ pipeline{
             }
         stage('Building Artifact'){
             steps{
-                withMaven(maven:'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn'){
+            
+               sh  ' export PATH=${env.MAVEN_HOME}/bin:\$PATH'
+
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
                 sh 'mvn compile'
@@ -30,7 +32,7 @@ pipeline{
                 sh 'mvn package'
                 echo ".......Creating Jar files........"
                 sh 'mv target/*.jar target/hello-artifact.jar'
-                }
+                
             }
         }
         stage('Push to Code Artifact'){
