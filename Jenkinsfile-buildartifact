@@ -10,8 +10,7 @@ pipeline{
 
     }
     tools {
-        maven C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6
-    }
+        maven 'MAVEN_HOME'
 
     stages{
         stage('Code Checkout'){
@@ -24,7 +23,7 @@ pipeline{
             }
         stage('Building Artifact'){
             steps{
-                 //withMaven(maven: 'MAVEN_HOME'){
+                withMaven(maven:'MAVEN_HOME'){
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
                 sh 'mvn compile'
@@ -32,7 +31,7 @@ pipeline{
                 sh 'mvn package'
                 echo ".......Creating Jar files........"
                 sh 'mv target/*.jar target/hello-artifact.jar'
-                //}
+                }
             }
         }
         stage('Push to Code Artifact'){
