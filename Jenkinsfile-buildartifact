@@ -7,7 +7,7 @@ pipeline{
          AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
          ARTIFACT_REPO = "buildartifactrepo"
          REGION = "us-east-1"
-        MAVEN_HOME= "C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6"
+         MAVEN_HOME= "C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\"
 
     }
     
