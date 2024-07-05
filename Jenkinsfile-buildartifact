@@ -1,7 +1,7 @@
 pipeline{
     agent {
         docker{image 'maven:3.8.2-amazoncorretto-17'
-         args '-v /c/Users/kesavank/ArtifactBuild:/src'
+         //args '-v /c/Users/kesavank/ArtifactBuild:/src'
          }
     }
     
@@ -28,13 +28,13 @@ pipeline{
             
                 dir('/src/') {
 
-                sh 'mvn clean'
+                bat 'mvn clean'
                 echo ".......Cleaning the previous build......"
-                sh 'mvn compile'
+                bat 'mvn compile'
                 echo ".......Compiling the source code......"
-                sh 'mvn package'
+                bat 'mvn package'
                 echo ".......Creating Jar files........"
-                sh 'mv target/*.jar target/hello-artifact.jar'
+                bat 'mv target/*.jar target/hello-artifact.jar'
                 
             }
             }
@@ -48,7 +48,7 @@ pipeline{
                 def artifactPath = 'target/hello-artifact.jar'
                 def region ="${env.REGION}"
 
-                sh """
+                bat """
                     set ARTIFACT_REPO=${repositoryName}
                     set REGION=${region}
                    
