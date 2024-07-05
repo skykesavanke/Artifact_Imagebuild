@@ -10,7 +10,7 @@ pipeline{
 
     }
     tools {
-        maven 'C:\Users\kesavank\Maven\apache-maven-3.9.6'
+        maven 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6'
     }
 
     stages{
