@@ -21,7 +21,7 @@ pipeline{
             }
         stage('Building Artifact'){
             steps{
-                 withMaven(maven :'C:\Users\kesavank\Downloads\apache-maven-3.9.7-bin\apache-maven-3.9.7\bin'){
+                 withMaven(maven :'C:\\Users\\kesavank\\Downloads\\apache-maven-3.9.7-bin\\apache-maven-3.9.7\\bin'){
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
                 sh 'mvn compile'
