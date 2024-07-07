@@ -1,10 +1,5 @@
 pipeline{
-    agent {
-        docker{
-            image 'maven:3.8.2-amazoncorretto-17'
-            args "-v ${pwd()}/workspace:/workspace -w /workspace"
-         }
-    }
+    agent none
     
 
     environment{
@@ -16,6 +11,21 @@ pipeline{
     }
     
     stages{
+        stage('Prepare Environment') {
+            agent {
+                docker {
+                    image 'maven:3.8.2-amazoncorretto-17'
+                    args '-v ${WORKSPACE}/workspace:/workspace -w /workspace'
+                }
+            }
+            steps {
+                script {
+                    env.WORKSPACE = pwd()
+                }
+            }
+        }
+
+
         stage('Code Checkout'){
              steps{
                 script{
