@@ -2,7 +2,7 @@ pipeline{
     agent {
         docker{
             image 'maven:3.8.2-amazoncorretto-17'
-         args '-v /c/Users/kesavank/ArtifactBuild:/workspace -w /workspace'
+            args '-v ${pwd()}/workspace:/workspace -w /workspace"'
          }
     }
     
@@ -27,7 +27,7 @@ pipeline{
         stage('Building Artifact'){
             steps{
             
-                dir('/workspace') {
+                dir('workspace') {
 
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
