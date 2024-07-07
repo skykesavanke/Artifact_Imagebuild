@@ -2,7 +2,7 @@ pipeline{
     agent {
         docker{
             image 'maven:3.8.2-amazoncorretto-17'
-            args '-v ${pwd()}/workspace:/workspace -w /workspace"'
+            args "-v ${pwd()}/workspace:/workspace -w /workspace"
          }
     }
     
