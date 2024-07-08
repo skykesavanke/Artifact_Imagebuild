@@ -6,7 +6,6 @@ pipeline{
          AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
          ARTIFACT_REPO = "buildartifactrepo"
          REGION = "us-east-1"
-         maven="MAVEN_HOME"
     }
     
     stages{
@@ -24,17 +23,17 @@ pipeline{
             
             steps{
             
-                withMaven("${env.maven}"){
-
-                sh 'mvn clean'
-                echo ".......Cleaning the previous build......"
-                sh 'mvn compile'
-                echo ".......Compiling the source code......"
-                sh 'mvn package'
-                echo ".......Creating Jar files........"
-                sh 'mv target/*.jar target/hello-artifact.jar'
                 
-                }
+
+                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn clean'
+                echo ".......Cleaning the previous build......"
+                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn compile'
+                echo ".......Compiling the source code......"
+                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn package'
+                echo ".......Creating Jar files........"
+                bat 'mv target/*.jar target/hello-artifact.jar'
+                
+                
             }
         }
         stage('Push to Code Artifact'){
@@ -46,7 +45,7 @@ pipeline{
                 def artifactPath = '/workspace/target/hello-artifact.jar'
                 def region ="${env.REGION}"
 
-                sh """
+                bat """
                     export ARTIFACT_REPO=${repositoryName}
                     export REGION=${region}
                         
