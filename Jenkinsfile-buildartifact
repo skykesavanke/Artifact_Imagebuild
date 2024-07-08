@@ -23,7 +23,7 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Maven...'
-                sh 'mvn clean package'
+                sh 'mvn install'
             }
         }
         // //stage('Building Artifact'){
