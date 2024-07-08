@@ -23,7 +23,7 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Maven...'
-                sh 'mvn install'
+                sh 'docker pull maven'
             }
         }
         // //stage('Building Artifact'){
