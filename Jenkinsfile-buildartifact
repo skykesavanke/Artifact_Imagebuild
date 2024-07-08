@@ -65,7 +65,7 @@ pipeline{
                      --format maven \
                      --namespace com.example \
                      --package hello-world \
-                     --package-version 1.0.0 \ 
+                     --package-version 1.0.0 \
                      --asset fileb://${artifactPath} \
                      --asset-name hello-artifact.jar
                 """
