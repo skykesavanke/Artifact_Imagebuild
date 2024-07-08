@@ -62,7 +62,7 @@ pipeline{
                      --domain $domainName \
                      --domain-owner ${env.AWS_ACCOUNT_ID} \
                      --repository $repositoryName 
-                     --format maven \
+                    
                      --namespace com.example \
                      --package hello-world \
                      --package-version 1.0.0 \
