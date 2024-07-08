@@ -23,26 +23,26 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Maven...'
-                sh 'mvn dependency:resolve'
+                sh 'mvn clean package'
             }
         }
-        stage('Building Artifact'){
+        // //stage('Building Artifact'){
             
-            steps{
+        //     steps{
             
              
 
-                sh 'mvn clean'
-                echo ".......Cleaning the previous build......"
-                sh 'mvn compile'
-                echo ".......Compiling the source code......"
-                sh 'mvn package'
-                echo ".......Creating Jar files........"
-                sh 'mv target/*.jar target/hello-artifact.jar'
+        //         sh 'mvn clean'
+        //         echo ".......Cleaning the previous build......"
+        //         sh 'mvn compile'
+        //         echo ".......Compiling the source code......"
+        //         sh 'mvn package'
+        //         echo ".......Creating Jar files........"
+        //         sh 'mv target/*.jar target/hello-artifact.jar'
                 
             
-            }
-        }
+        //     }
+        // }
         stage('Push to Code Artifact'){
             steps{
                 script{
