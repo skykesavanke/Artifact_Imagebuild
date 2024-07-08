@@ -31,7 +31,7 @@ pipeline{
                 echo ".......Compiling the source code......"
                 bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn package'
                 echo ".......Creating Jar files........"
-                bat 'move -f target/*.jar target/hello-artifact.jar'
+                bat 'mv -f target/*.jar target/hello-artifact.jar'
                 
                 
             }
