@@ -24,7 +24,7 @@ pipeline{
             
             steps{
             
-                withMaven(maven :${env.maven} ){
+                withMaven(maven :"${env.maven}"){
 
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
