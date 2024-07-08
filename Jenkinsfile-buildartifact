@@ -51,7 +51,7 @@ pipeline{
                   
                 def domainName = 'buildartifact'
                 def repositoryName = "${env.ARTIFACT_REPO}"
-                def artifactPath = '//workspace//target//hello-artifact.jar'
+                def artifactPath = 'target\\hello-artifact.jar'
                 def region ="${env.REGION}"
 
                 bat """
