@@ -23,7 +23,7 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Maven...'
-                sh 'docker pull maven'
+                sh 'docker pull maven:3.9.8-amazoncorretto-21'
             }
         }
         // //stage('Building Artifact'){
