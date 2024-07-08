@@ -24,7 +24,7 @@ pipeline{
             
             steps{
             
-                withMaven(maven :'maven:3.9.8-amazoncorretto-21' ){
+                withMaven(maven :'MAVEN_HOME' ){
 
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
