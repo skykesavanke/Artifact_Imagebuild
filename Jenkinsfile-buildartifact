@@ -1,5 +1,5 @@
 pipeline{
-    agent none
+    agent any
     
 
     environment{
@@ -11,23 +11,16 @@ pipeline{
     }
     
     stages{
-       stage('Prepare Environment') {
-            agent any
+       stage('Install Dependencies') {
             steps {
-                script {
-                    env.WORKSPACE = pwd()
-                }
+                echo 'Installing Maven...'
+                sh 'mvn dependency:resolve'
             }
         }
 
 
         stage('Code Checkout'){
-             agent {
-                docker {
-                    image 'maven:3.8.2-amazoncorretto-17'
-                    args "-v ${env.WORKSPACE}/workspace:/workspace -w /workspace"
-                }
-            }
+             
              steps{
                 script{
                 git branch:'master',url:'https://github.com/skykesavanke/Artifact_Imagebuild.git'
@@ -36,15 +29,10 @@ pipeline{
 
             }
         stage('Building Artifact'){
-             agent {
-                docker {
-                    image 'maven:3.8.2-amazoncorretto-17'
-                    args "-v ${env.WORKSPACE}/workspace:/workspace -w /workspace"
-                }
-            }
+            
             steps{
             
-                dir('workspace') {
+             
 
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
@@ -54,7 +42,7 @@ pipeline{
                 echo ".......Creating Jar files........"
                 sh 'mv target/*.jar target/hello-artifact.jar'
                 
-            }
+            
             }
         }
         stage('Push to Code Artifact'){
