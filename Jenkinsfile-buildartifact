@@ -11,15 +11,7 @@ pipeline{
     }
     
     stages{
-       stage('Install Dependencies') {
-            steps {
-                echo 'Installing Maven...'
-                sh 'mvn dependency:resolve'
-            }
-        }
-
-
-        stage('Code Checkout'){
+       stage('Code Checkout'){
              
              steps{
                 script{
@@ -28,6 +20,12 @@ pipeline{
              }
 
             }
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing Maven...'
+                sh 'mvn dependency:resolve'
+            }
+        }
         stage('Building Artifact'){
             
             steps{
