@@ -6,7 +6,7 @@ pipeline{
          AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
          ARTIFACT_REPO = "buildartifactrepo"
          REGION = "us-east-1"
-         
+         maven="MAVEN_HOME"
     }
     
     stages{
@@ -24,7 +24,7 @@ pipeline{
             
             steps{
             
-                withMaven(maven :'MAVEN_HOME' ){
+                withMaven(maven :${env.maven} ){
 
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
