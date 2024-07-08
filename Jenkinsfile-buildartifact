@@ -51,8 +51,8 @@ pipeline{
                 def region ="${env.REGION}"
 
                 bat """
-                    export ARTIFACT_REPO=${repositoryName}
-                    export REGION=${region}
+                    set ARTIFACT_REPO=${repositoryName}
+                    set REGION=${region}
                         
                    
                    aws codeartifact upload-package \
@@ -60,7 +60,7 @@ pipeline{
                         --repository %ARTIFACT_REPO% \
                         --package format=maven \
                          --path $artifactPath
-                          --region %REGION%
+                          
                 """
              
                 }        
