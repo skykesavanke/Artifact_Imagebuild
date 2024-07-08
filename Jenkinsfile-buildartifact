@@ -29,7 +29,7 @@ pipeline{
             
             steps{
             
-             
+                withMaven(maven :'maven:3.9.8-amazoncorretto-21' ){
 
                 sh 'mvn clean'
                 echo ".......Cleaning the previous build......"
@@ -39,7 +39,7 @@ pipeline{
                 echo ".......Creating Jar files........"
                 sh 'mv target/*.jar target/hello-artifact.jar'
                 
-            
+                }
             }
         }
         stage('Push to Code Artifact'){
