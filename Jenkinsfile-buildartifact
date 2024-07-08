@@ -6,6 +6,7 @@ pipeline{
          AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
          ARTIFACT_REPO = "buildartifactrepo"
          REGION = "us-east-1"
+         AWS_ACCOUNT_ID="211125415675"
     }
     
     stages{
@@ -55,12 +56,12 @@ pipeline{
                     set REGION=${region}
                         
                    
-                   aws codeartifact upload-package \
-                        --domain $domainName \
-                        --repository %ARTIFACT_REPO% \
-                        --package format=maven \
-                         --path $artifactPath
-                          
+                // aws codeartifact upload-package \
+                //          --domain $domainName \
+                //          --repository %ARTIFACT_REPO% \
+                //          --package format=maven \
+                //           --path $artifactPath
+                 aws codeartifact put-package-asset --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --repository $repositoryName --format maven --namespace com.example --package hello-world --package-version 1.0.0 --asset $artifactPath --asset-name hello-artifact.jar
                 """
              
                 }        
