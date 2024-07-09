@@ -59,8 +59,7 @@ pipeline{
                     set REGION=${region}
                         
                    
-                    aws codeartifact login --tool npm --domain $domainName --repository $repositoryName 
-
+                    aws codeartifact login --tool npm --repository artifactrepo --domain domain1 --domain-owner 211125415675 
                     aws codeartifact put-package-assets \
                      --domain $domainName \
                      --domain-owner ${env.AWS_ACCOUNT_ID} \
