@@ -13,3 +13,9 @@ variable "ecr_repo" {
   description = "This defines the ecr repository"
   default = "helloworldrepo"
 }
+variable "domain" {
+    type=string
+    description = "This defines the domain"
+    default = "domain-1"
+
+}
