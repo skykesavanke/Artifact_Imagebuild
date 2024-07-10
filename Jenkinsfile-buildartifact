@@ -59,7 +59,7 @@ pipeline{
                     set REGION=${region}
                         
                    
-                    aws codeartifact associate-external-connection --external-connection public:maven-central --domain $domainName --domain-owner 211125415675 --repository $repositoryName
+                    aws codeartifact associate-external-connegionction --external-connection public:maven-central --domain $domainName --domain-owner 211125415675 --repository $repositoryName --region $region
 
                     for /f %i in ('aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text') do set CODEARTIFACT_AUTH_TOKEN=%i
 
