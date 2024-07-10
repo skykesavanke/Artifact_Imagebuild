@@ -22,6 +22,11 @@ pipeline{
         }
             }
         }
+        stage('Verification'){
+            steps{
+                bat 'aws sts get-caller-identity'
+            }
+        }
 
         stage('Terraform Initialize'){
              steps{
