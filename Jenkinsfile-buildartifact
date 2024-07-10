@@ -49,7 +49,7 @@ pipeline{
             steps{
                 script{
                   
-                def domainName = 'domain1'
+                def domainName = 'domain-1'
                 def repositoryName = "${env.ARTIFACT_REPO}"
                 def artifactPath = 'target\\hello-artifact.jar'
                 def region ="${env.REGION}"
@@ -59,18 +59,12 @@ pipeline{
                     set REGION=${region}
                         
                    
-                    aws codeartifact login --tool npm --repository artifactrepo --domain domain1 --domain-owner 211125415675 
-                    aws codeartifact put-package-assets \
-                     --domain $domainName \
-                     --domain-owner ${env.AWS_ACCOUNT_ID} \
-                     --repository $repositoryName 
-                    
-                     --namespace com.example \
-                     --package hello-world \
-                     --package-version 1.0.0 \
-                     --asset fileb:${artifactPath} \
-                     --asset-name hello-artifact.jar
-                """
+                    aws codeartifact associate-external-connection --external-connection public:maven-central --domain $domainName --domain-owner 211125415675 --repository $repositoryName
+
+                    for /f %i in ('aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text') do set CODEARTIFACT_AUTH_TOKEN=%i
+
+
+               """
              
                 }        
 
