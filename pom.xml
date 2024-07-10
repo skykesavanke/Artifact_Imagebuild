@@ -53,12 +53,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
-  	<repository>
-    <id>domain1-artifactrepo</id>
-    <name>domain1-artifactrepo</name>
-    <url>https://domain1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/artifactrepo/</url>
-  </repository>
-</distributionManagement>
+	
 
 </project>

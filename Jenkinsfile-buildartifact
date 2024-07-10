@@ -66,6 +66,8 @@ pipeline{
 
                     echo %CODEARTIFACT_AUTH_TOKEN%
 
+                    aws codeartifact login --tool npm --repository $repositoryName --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID}
+
                """
              
                 }        
