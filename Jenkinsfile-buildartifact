@@ -55,7 +55,7 @@ pipeline{
                 
                 def region ="${env.REGION}"
                 def token = bat(
-                        script: "aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text",
+                        script: "aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text --region $region",
                         returnStdout: true
                     ).trim()
 
