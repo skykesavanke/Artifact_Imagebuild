@@ -55,12 +55,15 @@ pipeline{
                     
                //bat "aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --query authorizationToken --output text --region us-east-1"
                 
-                environment {
-                    "CODEARTIFACT_AUTH_TOKEN" : '''${bat(
-                        script : 'aws codeartifact get-authorization-token --domain domain-1 --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text --region us-east-1',
-                        returnStdout: true).trim()}'''
+                // environment {
+                //     "CODEARTIFACT_AUTH_TOKEN"='''${bat(
+                //         script : 'aws codeartifact get-authorization-token --domain domain-1 --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text --region us-east-1',
+                //         returnStdout: true).trim()}'''
                         
-                }
+                // }
+
+                		
+		bat ''' FOR /f "tokens=*" %%i IN ('aws codeartifact get-authorization-token --domain domain-1 --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text') DO SET CODEARTIFACT_AUTH_TOKEN=%%i '''
 
 
             }
