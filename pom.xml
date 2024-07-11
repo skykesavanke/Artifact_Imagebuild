@@ -53,6 +53,12 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+	<distributionManagement>
+  <repository>
+    <id>domain-1-buildartifactrepo</id>
+    <name>domain-1-buildartifactrepo</name>
+    <url>https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/</url>
+  </repository>
+</distributionManagement>
 
 </project>
