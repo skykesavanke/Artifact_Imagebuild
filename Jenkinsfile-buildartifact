@@ -53,8 +53,7 @@ pipeline{
 
                 bat "aws codeartifact associate-external-connection --external-connection public:maven-central --domain domain-1 --domain-owner 211125415675 --repository buildartifactrepo --region us-east-1"
                     
-                bat "for /f %i in ('aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --query authorizationToken --output text') do set CODEARTIFACT_AUTH_TOKEN=%i"
-                
+                bat "aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --query authorizationToken --output text"
 
             }
         }
