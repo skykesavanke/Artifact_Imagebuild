@@ -54,6 +54,11 @@ pipeline{
                 def repositoryName = "${env.ARTIFACT_REPO}"
                 def artifactPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Loca\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar'
                 def region ="${env.REGION}"
+                def token = sh(
+                        script: "aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text",
+                        returnStdout: true
+                    ).trim()
+
 
                 bat """
                     set ARTIFACT_REPO=${repositoryName}
@@ -65,17 +70,7 @@ pipeline{
                     aws codeartifact associate-external-connection --external-connection public:maven-central --domain $domainName --domain-owner 211125415675 --repository $repositoryName --region $region
 
                     
-                   
-                    set CODEARTIFACT_AUTH_TOKEN =(aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text)
-
-
-                    
-
-
-                   
-                    
-                    
-                   C:\\Windows\\System32\\curl.exe --request PUT "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/$artifactPath" --header "Content-Type: application/octet-stream" --user "aws:${CODEARTIFACT_AUTH_TOKEN}" --data-binary "@$artifactPath"
+                     C:\\Windows\\System32\\curl.exe --request PUT "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/$artifactPath" --header "Content-Type: application/octet-stream" --user "aws:$token" --data-binary "@$artifactPath"
 
 
                """
