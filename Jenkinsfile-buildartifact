@@ -4,7 +4,7 @@ pipeline{
     environment{
          AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
          AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
-         CODEARTIFACT_AUTH_TOKEN=credentials('CODEARTIFACT_AUTH_TOKEN')
+         
          ARTIFACT_REPO = "buildartifactrepo"
          REGION = "us-east-1"
          AWS_ACCOUNT_ID="211125415675"
@@ -52,12 +52,13 @@ pipeline{
                   
                 def domainName = 'domain-1'
                 def repositoryName = "${env.ARTIFACT_REPO}"
-                def artifactPath = 'target\\hello-artifact.jar'
+                def artifactPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Loca\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar'
                 def region ="${env.REGION}"
 
                 bat """
                     set ARTIFACT_REPO=${repositoryName}
                     set REGION=${region}
+                    
 
                     
                    
@@ -65,13 +66,13 @@ pipeline{
 
                     
                    
-                    
+                    setx CODEARTIFACT_AUTH_TOKEN = aws codeartifact get-authorization-token --domain $domainName --domain-owner ${AWS_ACCOUNT_ID} --query authorizationToken --output text
 
 
                    
                     
                     
-                   C:\\Windows\\System32\\curl.exe --request PUT "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar" --header "Content-Type: application/octet-stream" --header "Authorization: Bearer ${CODEARTIFACT_AUTH_TOKEN}" --data-binary "@C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar"
+                   C:\\Windows\\System32\\curl.exe --request PUT "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/$artifactPath" --header "Content-Type: application/octet-stream" --user "aws:${CODEARTIFACT_AUTH_TOKEN}" --data-binary "@$artifactPath"
 
 
                """
