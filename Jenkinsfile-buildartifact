@@ -61,7 +61,7 @@ pipeline{
 
 
                 bat """
-                   aws codeartifact get-authorization-token --domain $domainName --domain-owner ${AWS_ACCOUNT_ID} --query authorizationToken --output text'
+                   aws codeartifact'
 
                     set ARTIFACT_REPO=${repositoryName}
                     set REGION=${region}
