@@ -48,20 +48,12 @@ pipeline{
         }
         stage('Push to Code Artifact'){
             steps{
-                script{
-                  
-                def domainName = 'domain-1'
-                def repositoryName = "${env.ARTIFACT_REPO}"
                 
-                def region ="${env.REGION}"
-                // def token = bat(
-                //         script: "aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text --region $region",
-                //         returnStdout: true
-                //     ).trim()
 
 
                 bat """
                    aws codeartifact'
+
 
                     set ARTIFACT_REPO=${repositoryName}
                     set REGION=${region}
@@ -76,9 +68,7 @@ pipeline{
 
 
                """
-             
-                }        
-
+                
 
             }
         }
