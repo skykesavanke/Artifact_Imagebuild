@@ -4,6 +4,7 @@ pipeline{
     environment{
          AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
          AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+         CODEARTIFACT_AUTH_TOKEN=credentials('CODEARTIFACT_AUTH_TOKEN')
          ARTIFACT_REPO = "buildartifactrepo"
          REGION = "us-east-1"
          AWS_ACCOUNT_ID="211125415675"
@@ -63,15 +64,14 @@ pipeline{
                     aws codeartifact associate-external-connection --external-connection public:maven-central --domain $domainName --domain-owner 211125415675 --repository $repositoryName --region $region
 
                     
-                    set CODEARTIFACT_AUTH_TOKEN='aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text'
-
+                   
                     
 
 
                    
                     
                     
-                   C:\\Windows\\System32\\curl.exe --request PUT "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar" --user "aws:$CODEARTIFACT_AUTH_TOKEN" --header "Content-Type: application/octet-stream" --data-binary "@C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar"
+                   C:\\Windows\\System32\\curl.exe --request PUT "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar" --user "aws:${env.CODEARTIFACT_AUTH_TOKEN}" --header "Content-Type: application/octet-stream" --data-binary "@C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar"
 
 
                """
