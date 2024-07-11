@@ -54,14 +54,15 @@ pipeline{
                 def repositoryName = "${env.ARTIFACT_REPO}"
                 
                 def region ="${env.REGION}"
-                def token = bat(
-                    script :"for /f %i in ('aws codeartifact get-authorization-token --domain $domainName --domain-owner ${AWS_ACCOUNT_ID} --query authorizationToken --output text --region $region') do set CODEARTIFACT_AUTH_TOKEN=%i",
-                       
-                        returnStdout: true
-                    ).trim()
+                // def token = bat(
+                //         script: "aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text --region $region",
+                //         returnStdout: true
+                //     ).trim()
 
 
                 bat """
+                    for /f %i in ('aws codeartifact get-authorization-token --domain $domainName --domain-owner ${AWS_ACCOUNT_ID} --query authorizationToken --output text') do set CODEARTIFACT_AUTH_TOKEN=%i
+
                     set ARTIFACT_REPO=${repositoryName}
                     set REGION=${region}
                     
