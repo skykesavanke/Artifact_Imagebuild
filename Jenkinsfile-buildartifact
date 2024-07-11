@@ -52,7 +52,7 @@ pipeline{
                   
                 def domainName = 'domain-1'
                 def repositoryName = "${env.ARTIFACT_REPO}"
-                def artifactPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Loca\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar'
+                def artifactPath = 'C\\Windows\\System32\\config\\systemprofile\\AppData\\Loca\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar'
                 def region ="${env.REGION}"
                 def token = sh(
                         script: "aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text",
