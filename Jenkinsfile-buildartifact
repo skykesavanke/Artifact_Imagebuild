@@ -55,8 +55,7 @@ pipeline{
                    aws codeartifact'
 
 
-                    set ARTIFACT_REPO=${repositoryName}
-                    set REGION=${region}
+                    
                     
 
                     
