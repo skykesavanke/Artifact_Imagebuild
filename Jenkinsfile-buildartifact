@@ -63,7 +63,7 @@ pipeline{
                 // }
 
                 		
-		bat ''' FOR /f "tokens=*" %%i IN ('aws codeartifact get-authorization-token --domain domain-1 --domain-owner ${env.AWS_ACCOUNT_ID}  --region us-east-1 --query authorizationToken --output text') DO SET CODEARTIFACT_AUTH_TOKEN=%%i '''
+		bat ''' FOR /f "tokens=*" %%i IN ('aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --region us-east-1 --query authorizationToken --output text') DO SET CODEARTIFACT_AUTH_TOKEN=%%i '''
 
 
             }
