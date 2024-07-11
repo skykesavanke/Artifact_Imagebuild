@@ -71,7 +71,7 @@ pipeline{
                    
                     
                     
-                   C:\\Windows\\System32\\curl.exe --request PUT "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar" --user "aws:${CODEARTIFACT_AUTH_TOKEN}" --header "Content-Type: application/octet-stream" --data-binary "@C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar"
+                   C:\\Windows\\System32\\curl.exe --request PUT "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar" --header "Content-Type: application/octet-stream" --header "Authorization: Bearer ${CODEARTIFACT_AUTH_TOKEN}" --data-binary "@C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\hello-artifact.jar"
 
 
                """
