@@ -52,7 +52,7 @@ pipeline{
 
 
                 bat """
-                   aws codeartifact
+                    aws codeartifact
 
                     aws codeartifact associate-external-connection --external-connection public:maven-central --domain domain-1 --domain-owner 211125415675 --repository buildartifactrepo --region us-east-1
                     
