@@ -65,7 +65,7 @@ pipeline{
                     
                     set CODEARTIFACT_AUTH_TOKEN='aws codeartifact get-authorization-token --domain $domainName --domain-owner ${env.AWS_ACCOUNT_ID} --query authorizationToken --output text'
 
-                    echo %CODEARTIFACT_AUTH_TOKEN%
+                    
 
 
                    
