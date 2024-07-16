@@ -96,7 +96,7 @@ pipeline{
                                 --repository buildartifactrepo ^
                                 --format maven ^
                                 --namespace com.example.app ^
-                                --package helloworld ^
+                                --package example ^
                                 --versions 1.0 ^
                                 --region us-east-1 ^
                                 --target-status Published
