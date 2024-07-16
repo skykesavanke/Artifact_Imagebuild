@@ -91,8 +91,8 @@ pipeline{
                                 --domain-owner 211125415675 ^
                                 --repository buildartifactrepo ^
                                 --format maven ^
-                                --namespace com.helloworld.app ^
-                                --package my-app ^
+                                --namespace com.example.app ^
+                                --package helloworld ^
                                 --versions 1.0 ^
                                 --region us-east-1 ^
                                 --target-status Published
