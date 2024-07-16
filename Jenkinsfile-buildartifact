@@ -26,46 +26,49 @@ pipeline{
         }
         stage ('Token Generation'){
             steps{
-                bat ''' FOR /f "tokens=*" %%i IN ('aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --region us-east-1 --query authorizationToken --output text') DO SET CODEARTIFACT_AUTH_TOKEN=%%i '''
+                script{
+                def tokenFile = 'codeartifact_token.txt'
+                    bat """aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --region us-east-1 --query authorizationToken --output text > ${tokenFile}"""
+                    def token = readFile(tokenFile).trim()
+                    withEnv(["CODEARTIFACT_AUTH_TOKEN=${token}"]) {
+                        echo "Token generated and set in environment"
+                
+            //bat ''' FOR /f "tokens=*" %%i IN ('aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --region us-east-1 --query authorizationToken --output text') DO SET CODEARTIFACT_AUTH_TOKEN=%%i '''
+                    }
             }
         }
         stage('Building Artifact'){
             
             steps{
-            
+                script{
                 
 
-                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn clean'
-                echo ".......Cleaning the previous build......"
-                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn validate'
-                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn compile'
-                echo ".......Compiling the source code......"
-                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn package'
-                echo ".......Creating Jar files........"
-                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn verify'
-                bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn install'
-                //bat 'move target\\*.jar target\\hello-artifact.jar'
-                //echo "............Moving the JAR files.........."
-                //bat 'dir target'
-                
+                    def mavenPath = 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn'
+                    bat "${mavenPath} clean"
+                    echo ".......Cleaning the previous build......"
+                    bat "${mavenPath} validate"
+                    bat "${mavenPath} compile"
+                    echo ".......Compiling the source code......"
+                    bat "${mavenPath} package"
+                    echo ".......Creating Jar files........"
+                    bat "${mavenPath} verify"
+                    bat "${mavenPath} install"
+                }    
                 
             }
         }
         stage('Push to Code Artifact'){
             steps{
                 
-                    
-                 //bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn clean deploy'
-                 //bat "aws codeartifact associate-external-connection --external-connection public:maven-central --domain domain-1 --domain-owner 211125415675 --repository buildartifactrepo --region us-east-1"
-                 bat "C:\\Windows\\System32\\curl.exe --request PUT https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/helloworld-0.0.1-SNAPSHOT.jar --user "aws:${CODEARTIFACT_AUTH_TOKEN}" --data-binary @helloworld-0.0.1-SNAPSHOT.jar"
+                script{    
+                def artifactPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\helloworld-0.0.1-SNAPSHOT.jar'
+                    def artifactRepoUrl = "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/${artifactPath}"
+                    bat "curl --request PUT ${artifactRepoUrl} --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${artifactPath}"
 
-                 
-                 bat "C:\\Windows\\System32\\curl.exe --request PUT https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/helloworld-0.0.1-SNAPSHOT.jar --user "aws:${CODEARTIFACT_AUTH_TOKEN}" --data-binary @C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\pom.xml"
-
-
-                 //bat "aws codeartifact put-asset --domain domain-1 --domain-owner 211125415675 --repository buildartifactrepo --format maven --path C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/*.jar--asset-name your-jar-name.jar --authorization-token ${env.CODEARTIFACT_AUTH_TOKEN}"
+                    def pomPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\pom.xml'
+                    bat "curl --request PUT ${artifactRepoUrl} --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${pomPath}"
                 
-                
+                }
 
             }
         }
