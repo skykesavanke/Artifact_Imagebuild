@@ -90,15 +90,15 @@ pipeline{
                 """
                         
                         bat """
-                            aws codeartifact update-package-versions-status ^
-                                --domain domain-1 ^
-                                --domain-owner 211125415675 ^
-                                --repository buildartifactrepo ^
-                                --format maven ^
-                                --namespace com ^
-                                --package example ^
-                                --versions HelloWorld ^
-                                --region us-east-1 ^
+                            aws codeartifact update-package-versions-status \
+                                --domain domain-1 \
+                                --domain-owner 211125415675 \
+                                --repository buildartifactrepo \
+                                --format maven \
+                                --namespace com \
+                                --package example \
+                                --versions HelloWorld \
+                                --region us-east-1 \
                                 --target-status Published
                         """
                     }
