@@ -67,7 +67,7 @@ pipeline{
                     
                     def artifactPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\helloworld-0.0.1-SNAPSHOT.jar'
                     def artifactRepoUrl = "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo"
-                    bat "curl --request PUT ${artifactRepoUrl}/com/example/HelloWorld/0.0.1-SNAPSHOT/helloworld-0.0.1-SNAPSHOT.jar --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${artifactPath}"
+                    bat "curl --request PUT ${artifactRepoUrl}/com/example/HelloWorld/helloworld-0.0.1-SNAPSHOT.jar --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${artifactPath}"
 
                     def pomPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\pom.xml'
                     bat "curl --request PUT ${artifactRepoUrl} --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${pomPath}"
