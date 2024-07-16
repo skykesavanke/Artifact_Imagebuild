@@ -60,7 +60,7 @@ pipeline{
                  bat "C:\\Windows\\System32\\curl.exe --request PUT https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/helloworld-0.0.1-SNAPSHOT.jar --user aws:${CODEARTIFACT_AUTH_TOKEN} --data-binary @helloworld-0.0.1-SNAPSHOT.jar"
 
                  
-                bat "C:\\Windows\\System32\\curl.exe --request PUT https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/helloworld-0.0.1-SNAPSHOT.jar --user aws:${CODEARTIFACT_AUTH_TOKEN} --data-binary @C:\\Windows\System32\config\systemprofile\AppData\Local\Jenkins\.jenkins\workspace\Image_Build_from_Artifact\pom.xml"
+                bat "C:\\Windows\\System32\\curl.exe --request PUT https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/helloworld-0.0.1-SNAPSHOT.jar --user aws:${CODEARTIFACT_AUTH_TOKEN} --data-binary @C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\pom.xml"
 
 
                  //bat "aws codeartifact put-asset --domain domain-1 --domain-owner 211125415675 --repository buildartifactrepo --format maven --path C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/*.jar--asset-name your-jar-name.jar --authorization-token ${env.CODEARTIFACT_AUTH_TOKEN}"
