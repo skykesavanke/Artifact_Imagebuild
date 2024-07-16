@@ -78,6 +78,28 @@ pipeline{
 
         
         }
+         stage('Update Package Version Status') {
+            steps {
+                script {
+                    def tokenFile = 'codeartifact_token.txt'
+                    def token = readFile(tokenFile).trim()
+                    withEnv(["CODEARTIFACT_AUTH_TOKEN=${token}"]) {
+                        
+                        bat """
+                            aws codeartifact update-package-versions-status ^
+                                --domain domain-1 ^
+                                --domain-owner 211125415675 ^
+                                --repository buildartifactrepo ^
+                                --format maven ^
+                                --namespace com.helloworld.app ^
+                                --package my-app ^
+                                --versions 1.0 ^
+                                --target-status Published
+                        """
+                    }
+                }
+            }
+        }
     //     stage('Push image to ECR'){
     //         steps{
     //             script{
