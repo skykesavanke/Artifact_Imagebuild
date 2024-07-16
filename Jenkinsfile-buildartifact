@@ -44,9 +44,9 @@ pipeline{
                 echo ".......Creating Jar files........"
                 bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn verify'
                 bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn install'
-                bat 'move target\\*.jar target\\hello-artifact.jar'
-                echo "............Moving the JAR files.........."
-                bat 'dir target'
+                //bat 'move target\\*.jar target\\hello-artifact.jar'
+                //echo "............Moving the JAR files.........."
+                //bat 'dir target'
                 
                 
             }
@@ -57,9 +57,9 @@ pipeline{
                     
                  bat 'C:\\Users\\kesavank\\Maven\\apache-maven-3.9.6\\bin\\mvn clean deploy'
                  bat "aws codeartifact associate-external-connection --external-connection public:maven-central --domain domain-1 --domain-owner 211125415675 --repository buildartifactrepo --region us-east-1"
-                 bat '''C:\\Windows\\System32\\curl.exe --request PUT https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar --user "aws:${env.CODEARTIFACT_AUTH_TOKEN}" --header "Content-Type: application/octet-stream" --data-binary "@C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar'''
+                 bat '''C:\\Windows\\System32\\curl.exe --request PUT https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/C/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/*.jar --user "aws:${env.CODEARTIFACT_AUTH_TOKEN}" --header "Content-Type: application/octet-stream" --data-binary "@C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar'''
 
-                 bat "aws codeartifact put-asset --domain domain-1 --domain-owner 211125415675 --repository buildartifactrepo --format maven --path C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/hello-artifact.jar--asset-name your-jar-name.jar --authorization-token ${env.CODEARTIFACT_AUTH_TOKEN}"
+                 //bat "aws codeartifact put-asset --domain domain-1 --domain-owner 211125415675 --repository buildartifactrepo --format maven --path C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/Image_Build_from_Artifact/target/*.jar--asset-name your-jar-name.jar --authorization-token ${env.CODEARTIFACT_AUTH_TOKEN}"
                 
                 
 
