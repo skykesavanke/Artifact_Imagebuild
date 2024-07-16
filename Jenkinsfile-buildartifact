@@ -94,6 +94,7 @@ pipeline{
                                 --namespace com.helloworld.app ^
                                 --package my-app ^
                                 --versions 1.0 ^
+                                --region us-east-1 ^
                                 --target-status Published
                         """
                     }
