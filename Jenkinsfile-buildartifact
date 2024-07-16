@@ -29,9 +29,7 @@ pipeline{
                 script{
                 def tokenFile = 'codeartifact_token.txt'
                     bat """aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --region us-east-1 --query authorizationToken --output text > ${tokenFile}"""
-                    def token = readFile(tokenFile).trim()
-                    withEnv(["CODEARTIFACT_AUTH_TOKEN=${token}"]) {
-                        echo "Token generated and set in environment"
+                    
                 
             //bat ''' FOR /f "tokens=*" %%i IN ('aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --region us-east-1 --query authorizationToken --output text') DO SET CODEARTIFACT_AUTH_TOKEN=%%i '''
                     }
@@ -61,8 +59,12 @@ pipeline{
         stage('Push to Code Artifact'){
             steps{
                 
-                script{    
-                def artifactPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\helloworld-0.0.1-SNAPSHOT.jar'
+                script{  
+                    def tokenFile = 'codeartifact_token.txt'  
+                    def token = readFile(tokenFile).trim()
+                    withEnv(["CODEARTIFACT_AUTH_TOKEN=${token}"]) {
+                        echo "Token generated and set in environment"
+                    def artifactPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\target\\helloworld-0.0.1-SNAPSHOT.jar'
                     def artifactRepoUrl = "https://domain-1-211125415675.d.codeartifact.us-east-1.amazonaws.com/maven/buildartifactrepo/${artifactPath}"
                     bat "curl --request PUT ${artifactRepoUrl} --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${artifactPath}"
 
