@@ -8,9 +8,9 @@ pipeline{
          ARTIFACT_REPO = "buildartifactrepo"
          REGION = "us-east-1"
          AWS_ACCOUNT_ID="211125415675"
-        IMAGE_REPO_NAME = "helloworldrepo"
-        AWS_REGION = 'us-east-1'
-        ECR_URL= "211125415675.dkr.ecr.${REGION}.amazonaws.com"
+         IMAGE_REPO_NAME = "helloworldrepo"
+         AWS_REGION = 'us-east-1'
+         ECR_URL= "211125415675.dkr.ecr.${REGION}.amazonaws.com"
     }
     
     stages{
@@ -31,7 +31,7 @@ pipeline{
                     bat """aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --region us-east-1 --query authorizationToken --output text > ${tokenFile}"""
                     
                 
-            //bat ''' FOR /f "tokens=*" %%i IN ('aws codeartifact get-authorization-token --domain domain-1 --domain-owner 211125415675 --region us-east-1 --query authorizationToken --output text') DO SET CODEARTIFACT_AUTH_TOKEN=%%i '''
+           
                     }
             }
         }
@@ -70,7 +70,7 @@ pipeline{
                     bat "curl --request PUT ${artifactRepoUrl}/com/example/HelloWorld/helloworld-0.0.1-SNAPSHOT.jar --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${artifactPath}"
 
                     def pomPath = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Image_Build_from_Artifact\\pom.xml'
-                    bat "curl --request PUT ${artifactRepoUrl} --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${pomPath}"
+                    bat "curl --request PUT ${artifactRepoUrl}/com/example/HelloWorld/helloworld-0.0.1-SNAPSHOT.jar --user \"aws:${CODEARTIFACT_AUTH_TOKEN}\" --data-binary @${pomPath}"
                 
                 }
 

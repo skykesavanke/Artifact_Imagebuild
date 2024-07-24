@@ -31,8 +31,8 @@ pipeline{
         stage('Terraform Initialize'){
              steps{
                  bat 'C:\\Users\\kesavank\\Terraform\\terraform init'
+            }
         }
-    }
         stage('Terraform run'){
            steps{
              script{
@@ -63,42 +63,6 @@ pipeline{
              }
            }
         }
-        /*stage('Artifact Build'){
-            steps{
-                sh 'mvn clean'
-                echo ".......Cleaning the previous build......"
-                sh 'mvn compile'
-                echo ".......Compiling the source code......"
-                sh 'mvn package'
-                echo ".......Creating Jar files........"
-                sh 
-            }
-        }
-         stage('Image Build'){
-           steps{
-             script{
-                
-                    def imageRepoName = "${env.IMAGE_REPO_NAME}"
-                    def awsRegion = "${env.AWS_REGION}"
-                    def ecrUrl = "211125415675.dkr.ecr.${awsRegion}.amazonaws.com"
-
-                        
-                        bat """
-                                set IMAGE_REPO_NAME=${imageRepoName}
-                                set AWS_REGION=${awsRegion}
-                                set ECR_URL=${ecrUrl}
-
-                                aws ecr get-login-password --region %AWS_REGION% | docker login --username AWS --password-stdin  %ECR_URL%
-                                docker build -t  %IMAGE_REPO_NAME% .
-                                docker tag %IMAGE_REPO_NAME%:latest %ECR_URL%/%IMAGE_REPO_NAME%:latest
-                                docker push  %ECR_URL%/%IMAGE_REPO_NAME%:latest
-                       """
-                    } 
-                    
-             }  
-    }
-    */
-
         stage('Build Artifact Pipeline trigger'){
             steps{
                 build job : 'Image_Build_from_Artifact'
